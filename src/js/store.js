@@ -8,13 +8,8 @@ import thunk from 'redux-thunk';
 import session from './reducers/session';
 import route from './reducers/route';
 import nav from './reducers/nav';
-// import dashboard from './reducers/dashboard';
-// import index from './reducers/index';
-// import item from './reducers/item';
-
+import makermap from './reducers/makermap';
 export default compose(
   applyMiddleware(thunk)
   // DevTools.instrument()
-)(createStore)(combineReducers({session, route, nav
-//    ,dashboard, index, item
-}));
+)(createStore)(combineReducers({session, route, nav, makermap}));

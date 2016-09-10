@@ -40,7 +40,7 @@ class NavSidebar extends Component {
         <Header large={true} justify="between" pad={{horizontal: 'medium'}}>
           <Title onClick={this._onClose} a11yTitle="Close Menu">
             <Logo inverse={true} />
-            MakerMap
+            MakerHub
           </Title>
           <Menu responsive={false}>
             <Button plain={true} a11yTitle="Close Menu"
@@ -51,7 +51,7 @@ class NavSidebar extends Component {
           {links}
         </Menu>
         <Footer pad="medium">
-
+          footer  
         </Footer>
       </Sidebar>
     );

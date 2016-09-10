@@ -8,14 +8,6 @@ const initialState = {
   peek: false,
   items: [
     {path: '/map', label: 'MakerMap'},
-    // {path: '/activity', label: 'Activity'},
-    // {path: '/enclosures', label: 'Enclosures',
-    //   indexCategory: 'enclosures', resourceRoute: 'enclosure'},
-    // {path: '/server-hardware', label: 'Server Hardware',
-    //   indexCategory: 'server-hardware', resourceRoute: 'server hardware'},
-    // {path: '/server-profiles', label: 'Server Profiles',
-    //   indexCategory: 'server-profiles', resourceRoute: 'server profile'},
-    // {path: '/reports', label: 'Reports'},
     {path: '/settings', label: 'Settings'}
   ]
 };

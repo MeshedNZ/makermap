@@ -9,81 +9,44 @@ import ReactDOM from 'react-dom';
 // PropTypes is for validation
 
 // react-router -- IMPORTANT
-import Router from 'react-router';
-// useful utility to make REST calls easier -- IMPORTANT
+import { Router, browserHistory } from 'react-router';
 import Rest from 'grommet/utils/Rest';
-// websockets
-// import RestWatch from './RestWatch';
-// locale
-// import { getCurrentLocale, getLocaleData } from 'grommet/utils/Locale';
-// import { addLocaleData } from 'react-intl';
-// import en from 'react-intl/locale-data/en';
-// import { IntlProvider } from 'react-intl';
-// routing stuff -- IMPORTANT
 import Routes from './routes';
-// state container -- IMPORTANT
-import { Provider } from 'react-redux';
-
-// import DevTools from './DevTools';
-
-import store from './store';
 import history from './routes-history';
-import { init, routeChanged } from './actions';
-
-// The port number needs to align with devServerProxy and websocketHost in gulpfile.js
-//let hostName = NODE_ENV === 'development' ? 'localhost:8010' : window.location.host;
-
-//RestWatch.initialize('ws://' + hostName + '/rest/ws');
+import { Provider } from 'react-redux';
+import store from './store';
+import { init, routeChanged, loginSuccess } from './actions';
 
 Rest.setHeaders({
   'Accept': 'application/json',
   'X-API-Version': 200
 });
 
-// From a comment in https://github.com/rackt/redux/issues/637
-// this factory returns a history implementation which reads the current state
-// from the redux store and delegates push state to a different history.
-let createStoreHistory = () => {
-  return {
-    listen: (callback) => {
-      // subscribe to the redux store. when `route` changes, notify the listener
-      let notify = () => {
-        const route = store.getState().route;
-        if (route) {
-          callback(route);
-        }
-      };
-      const unsubscribe = store.subscribe(notify);
+let element = document.getElementById('content');
 
-      return unsubscribe;
-    },
-    createHref: history.createHref,
-    pushState: history.pushState,
-    push: history.push
-  };
+import AppRoot from './components/AppRoot';
+import Login from './components/Login';
+import MapView from './components/MapView';
+import TBD from 'grommet/components/TBD';
+
+var routes = {
+  path: '/',
+  component: AppRoot,
+
+  childRoutes: [
+    {path: 'login', component: Login},
+    {path: 'map', component: MapView},
+    {path: 'settings', component: TBD}
+  ]
 };
 
-let element = document.getElementById('content');
-//
-// let locale = getCurrentLocale();
-// addLocaleData(en);
 
-// let messages;
-// try {
-//   messages = require('../messages/' + locale);
-// } catch (e) {
-//   messages = require('../messages/en-US');
-// }
-// var localeData = getLocaleData(messages, locale);
 
 ReactDOM.render((
   <div>
     <Provider store={store}>
-      <Router routes={Routes.routes} history={createStoreHistory()} />
+      <Router routes={routes} history={browserHistory} />
     </Provider>
-    {/*}
-    <DevTools store={store} />
-    {*/}
   </div>
 ), element);
 
@@ -93,7 +56,7 @@ let localStorage = window.localStorage;
 // init from localStorage
 store.dispatch(init(localStorage.email, localStorage.token));
 // // simulate initial login
-// store.dispatch(loginSuccess('nobody@grommet.io', 'simulated'));
+store.dispatch(loginSuccess('nobody@grommet.io', 'simulated'));
 
 let postLoginPath = '/map';
 
@@ -111,7 +74,7 @@ let sessionWatcher = () => {
       postLoginPath = route.pathname;
       history.pushState(null, Routes.path('/login'));
     } else if (route.pathname === '/') {
-      history.replaceState(null, Routes.path('/dashboard'));
+      history.replaceState(null, Routes.path('/map'));
     }
   }
 };
