@@ -56,7 +56,7 @@ let localStorage = window.localStorage;
 // init from localStorage
 store.dispatch(init(localStorage.email, localStorage.token));
 // // simulate initial login
-store.dispatch(loginSuccess('nobody@grommet.io', 'simulated'));
+//store.dispatch(loginSuccess('nobody@grommet.io', 'simulated'));
 
 let postLoginPath = '/map';
 

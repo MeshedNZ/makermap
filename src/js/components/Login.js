@@ -53,7 +53,7 @@ class IndexerLogin extends Component {
         <Sidebar justify="center" align="center" pad="medium" size="large">
           <LoginForm
             logo={<Logo size="large" />}
-            title="Ferret"
+            title="MakerHub"
             onSubmit={this._onSubmit}
             errors={errors} />
         </Sidebar>
